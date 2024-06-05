@@ -5,7 +5,7 @@ import datetime
 import streamlit as st
 import streamlit_antd_components as sac
 from openai import OpenAI
-from .utils.utils2 import (openai_whisper_result, faster_whisper_result, file_to_mp3)
+from .utils.utils2 import (openai_whisper_result, runWhisperSeperateProc, file_to_mp3)
 
 
 def audio():
@@ -74,7 +74,7 @@ def audio():
                     model = faster_whisper_model
                     if faster_whisper_local:
                         model = faster_whisper_local_path
-                    result = faster_whisper_result(output_file, device, model, whisper_prompt_setting, temperature_setting, vad_setting, lang_setting, beam_size_setting, min_vad_setting)
+                    result = runWhisperSeperateProc(output_file, device, model, whisper_prompt_setting, temperature_setting, vad_setting, lang_setting, beam_size_setting, min_vad_setting)
                 st.session_state.text = result["text"]
             else:
                 st.toast("请先上传文件！")
